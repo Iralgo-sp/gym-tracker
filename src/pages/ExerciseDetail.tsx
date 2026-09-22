@@ -2,6 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { db } from '../db'
 import ExerciseThumb from '../components/ExerciseThumb'
+import SessionEntry from '../components/SessionEntry'
 
 export default function ExerciseDetail() {
   const { id } = useParams()
@@ -68,24 +69,7 @@ export default function ExerciseDetail() {
               </div>
             </div>
 
-            {exercise.type === 'machine' && s.sets && s.sets.length > 0 && (
-              <ul className="set-list">
-                {s.sets.map((set, i) => (
-                  <li key={i}>
-                    Serie {i + 1}: {set.reps} reps × {set.weight} kg
-                  </li>
-                ))}
-                <li className="set-list__total">
-                  Volumen total: {s.sets.reduce((sum, set) => sum + set.reps * set.weight, 0)} kg
-                </li>
-              </ul>
-            )}
-
-            {exercise.type === 'activity' && s.durationMin !== undefined && (
-              <p className="session-item__duration">{s.durationMin} min</p>
-            )}
-
-            {s.notes && <p className="session-item__notes">{s.notes}</p>}
+            <SessionEntry exercise={exercise} session={s} />
           </li>
         ))}
       </ul>

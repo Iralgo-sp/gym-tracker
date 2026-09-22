@@ -7,6 +7,8 @@
   --color-primary-contrast: #ffffff;
   --color-border: #e2e8f0;
   --color-danger: #dc2626;
+  --color-machine: var(--color-primary);
+  --color-activity: #10b981;
   --radius: 14px;
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -467,4 +469,118 @@ select:focus {
   text-align: center;
   color: var(--color-text-muted);
   font-size: 0.9rem;
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.calendar-month-label {
+  background: none;
+  border: none;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-transform: capitalize;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.calendar-legend {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-dot {
+  width: 9px;
+  height: 9px;
+  min-width: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.legend-dot--machine {
+  background: var(--color-machine);
+}
+
+.legend-dot--activity {
+  background: var(--color-activity);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-weekday {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  padding-bottom: 4px;
+}
+
+.calendar-cell {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  font-size: 0.85rem;
+}
+
+.calendar-cell--empty {
+  background: none;
+  border: none;
+}
+
+.calendar-cell--today {
+  border-color: var(--color-primary);
+  border-width: 2px;
+}
+
+.calendar-cell__marks {
+  display: flex;
+  gap: 3px;
+  height: 4px;
+}
+
+.calendar-mark {
+  width: 12px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.calendar-mark--machine {
+  background: var(--color-machine);
+}
+
+.calendar-mark--activity {
+  background: var(--color-activity);
+}
+
+.day-item__exercise {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text);
+  text-decoration: none;
 }

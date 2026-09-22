@@ -1,5 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
+import CalendarPage from './pages/CalendarPage'
+import DayDetail from './pages/DayDetail'
 import ExerciseDetail from './pages/ExerciseDetail'
 import ExerciseForm from './pages/ExerciseForm'
 import SessionForm from './pages/SessionForm'
@@ -9,6 +11,8 @@ export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/calendar" element={<CalendarPage />} />
+      <Route path="/calendar/:date" element={<DayDetail />} />
       <Route path="/settings" element={<Settings />} />
       <Route path="/exercise/new" element={<ExerciseForm mode="create" />} />
       <Route path="/exercise/:id" element={<ExerciseDetail />} />

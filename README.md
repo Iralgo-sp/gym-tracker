@@ -9,6 +9,8 @@ gimnasio: máquinas de musculación y actividades (spinning, remo, etc.).
   series × repeticiones × peso).
 - **Actividades**: nombre, foto e historial de sesiones (fecha, duración).
 - Fotos añadidas desde la cámara o la galería del móvil.
+- Calendario del mes con marcas de color por día (máquinas / actividades);
+  al pulsar un día se ve el detalle de todo lo hecho ese día.
 - Funciona offline y se puede instalar en la pantalla de inicio (PWA).
 - Todos los datos se guardan localmente en el dispositivo (IndexedDB), no
   hay servidor ni cuenta que configurar.
