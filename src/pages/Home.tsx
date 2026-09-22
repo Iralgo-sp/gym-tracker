@@ -17,6 +17,9 @@ export default function Home() {
     <div className="page">
       <header className="app-header">
         <h1>Control Gimnasio</h1>
+        <Link to="/settings" className="btn-icon" aria-label="Ajustes">
+          ⚙️
+        </Link>
       </header>
 
       <div className="tabs">

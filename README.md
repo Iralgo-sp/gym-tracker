@@ -54,6 +54,83 @@ sincronización entre varios dispositivos o copia de seguridad en la nube,
 se puede añadir un backend (por ejemplo Supabase o Firebase) sin rehacer
 la interfaz.
 
+Desde **Ajustes** (icono ⚙️ en la pantalla principal) puedes exportar todos
+los datos a un archivo `.zip` y volver a importarlos (por ejemplo tras
+reinstalar la app o cambiar de móvil).
+
+## Formato de exportación
+
+El `.zip` generado usa un formato abierto y autodescriptivo, pensado para
+poder leerse desde cualquier app o script futuro sin depender de esta base
+de código ni de IndexedDB:
+
+```
+gym-tracker-2026-09-22.zip
+├── data.json
+└── photos/
+    ├── 1.jpg
+    ├── 3.png
+    └── ...
+```
+
+`data.json`:
+
+```jsonc
+{
+  "schemaVersion": 1,
+  "exportedAt": "2026-09-22T10:00:00.000Z",
+  "exercises": [
+    {
+      "id": 1,
+      "type": "machine",            // "machine" | "activity"
+      "name": "Press banca",
+      "category": "Pecho",          // solo presente en "machine"
+      "photo": { "file": "photos/1.jpg", "mimeType": "image/jpeg" }, // opcional
+      "createdAt": "2026-01-10T09:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "type": "activity",
+      "name": "Spinning",
+      "createdAt": "2026-01-12T08:00:00.000Z"
+    }
+  ],
+  "sessions": [
+    {
+      "id": 1,
+      "exerciseId": 1,
+      "date": "2026-09-20",         // YYYY-MM-DD
+      "sets": [                     // solo presente si exerciseId es de tipo "machine"
+        { "reps": 10, "weight": 40 },
+        { "reps": 8, "weight": 42.5 }
+      ]
+    },
+    {
+      "id": 2,
+      "exerciseId": 2,
+      "date": "2026-09-21",
+      "durationMin": 45,            // solo presente si exerciseId es de tipo "activity"
+      "notes": "Clase intensa"
+    }
+  ]
+}
+```
+
+Notas para consumir este formato desde otra app:
+
+- `exercises[].photo.file` es una ruta relativa dentro del mismo `.zip`;
+  `mimeType` indica el tipo real del archivo (no te fíes solo de la
+  extensión).
+- `sessions[].exerciseId` referencia el `id` dentro de este mismo export,
+  no un id interno de la base de datos del navegador.
+- Los campos no aplicables al tipo de ejercicio (`category` en
+  actividades, `sets`/`durationMin` cruzados) simplemente no aparecen.
+- `schemaVersion` solo sube si cambia el significado de un campo ya
+  existente; añadir campos opcionales nuevos no la incrementa, así que un
+  lector tolerante debería ignorar campos desconocidos.
+- La lógica de export/import está en `src/lib/exportImport.ts` si quieres
+  ver el detalle exacto de generación/lectura.
+
 ## Generar los iconos de nuevo
 
 Los iconos PWA (`public/icons/*.png`) se generan con un pequeño script sin
